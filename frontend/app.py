@@ -3,15 +3,15 @@ import requests
 
 API_URL = "http://localhost:8000/chat"
 
-st.title("Mental Health Chatbot")
+st.title("Mental Health Chatbot (GenAI)")
 
-user_input = st.text_input("How are you feeling today?")
+user_input = st.text_input("How are you feeling?")
 
 if st.button("Send"):
-    response = requests.post(API_URL, json={"message": user_input})
-    data = response.json()
+    res = requests.post(API_URL, json={"message": user_input})
+    data = res.json()
 
     st.write("Bot:", data["response"])
 
-    if data.get("escalation"):
-        st.warning("⚠️ Crisis detected. Seeking help...")
+    if data["escalation"]:
+        st.error("🚨 Emergency detected. Help is being contacted.")
